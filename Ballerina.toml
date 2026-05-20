@@ -1,9 +1,8 @@
 [build-options]
   observabilityIncluded = true
-
+ 
 [package]
   distribution = "2201.8.3"
-  name = "directdebitprodv1"
-  org = "unitedbankforafrica"
+  name = "directdebittestv1"
+  org = "personalproject"
   version = "0.1.0"
-
