@@ -1,241 +1,152 @@
 import ballerina/http;
-
 import ballerina/io;
-
 import ballerina/soap.soap11;
-
 import ballerina/xmldata;
  
  
 type ErrorResponse record {|
-
     *http:InternalServerError;
-
     map<string|string[]> headers;
-
     ErrorMessageBody body;
-
 |};
  
  
 type ErrorMessageBody record {|
-
     ErrorMessageDetails am\:fault;
-
 |};
  
  
 type ErrorMessageDetails record {|
-
     string am\:code = "500";
-
     string am\:type = "Status report";
-
     string am\:message = "Runtime Error";
-
     string am\:description;
-
 |};
  
  
 type CreateMandateRequest record {
-
     string AcctNumber;
-
     string AcctName;
-
     string DateOfBirth;
-
     string TransType;
-
     string MerchantId;
-
     string TransId;
-
     string BVN;
-
     float Amount; 
-
     string Currency;
-
     string HashValue;
-
 };
  
  
 type InBoundPayloadCreateMandate record {
-
     CreateMandateRequest CreateMandateRequest;
-
 };
  
  
 type CancelMandateRequest record {
-
     string MandateCode;
-
     string TransType;
-
     string MerchantId;
-
     string TransId;
-
     string HashValue;
-
 };
  
  
 type InBoundPayloadCancelMandate record {
-
     CancelMandateRequest CancelMandateRequest;
-
 };
  
  
 type QueryPaymentRequest record {
-
     string MerchantId;
-
     string TransId;
-
     string PaymentRef;
-
     string HashValue;
-
 };
  
  
 type InBoundPayloadQueryPayment record {
-
     QueryPaymentRequest QueryPaymentRequest;
-
 };
  
  
 type validateTokenRequest record {
-
     string MandateCode;
-
     string Token;
-
     string TransType;
-
     string MerchantId;
-
     string TransId;
-
     string HashValue;
-
     string ServiceId;
-
 };
  
  
 type InBoundPayloadValidateToken record {
-
     validateTokenRequest validateTokenRequest;
-
 };
  
  
 type MakePaymentRequest record {
-
     string MandateCode;
-
     float Amount;
-
     string Currency;
-
     string TransType;
-
     string MerchantId;
-
     string TransId;
-
     string HashValue;
-
 };
  
  
 type InBoundPayloadMakePayment record {
-
     MakePaymentRequest MakePaymentRequest;
-
 };
  
  
 type ResendOtpRequest record {
-
     string MerchantId;
-
     string TransId;
-
     string HashValue;
-
 };
  
  
 type InBoundPayloadResendOTP record {
-
     ResendOtpRequest ResendOtpRequest;
-
 };
  
  
 type CreditMandateRequest record {
-
     string MerchantId;
-
     string MandateCode;
-
     float Amount;
-
     string Currency;
-
     string PaymentId;
-
     string TransType;
-
     string CreditDescription;
-
     string TransId;
-
     string HashValue;
-
 };
  
  
 type InBoundPayloadCreditMandate record {
-
     CreditMandateRequest CreditMandateRequest;
-
 };
  
  
 type PingRequest record {
-
     string MerchantId;
-
     string HashValue;
-
 };
  
  
 type InBoundPayloadPing record {
-
     PingRequest PingRequest;
-
 };
  
  
 type OutBoundPayload record {|
-
     *http:Ok;
-
     map<string|string[]> headers;
-
     json body;
-
 |};
  
  
@@ -264,9 +175,7 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
  
  
@@ -289,11 +198,8 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
-
     }
  
  
@@ -313,11 +219,8 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
-
     }
  
  
@@ -337,11 +240,8 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
-
     }
  
  
@@ -361,11 +261,8 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
-
     }
  
  
@@ -385,11 +282,8 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
-
     }
  
  
@@ -409,11 +303,8 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
-
     }
  
  
@@ -433,11 +324,8 @@ service / on new http:Listener(9090) {
  
  
         } on fail error e {
-
             return returnErrorResponse(e);
-
         }
-
     }
  
  
@@ -451,38 +339,26 @@ function sendResponse(xml result) returns OutBoundPayload|ErrorResponse {
  
  
     xml xmlResponse = result/**/<tempuri:xmlResponse>;
-
     xml|error value = xml:fromString(xmlResponse.data());
  
  
     if value is error {
-
         return returnErrorResponse(value);
-
     }
-
     json|xmldata:Error returnElementInJson = xmldata:toJson(value);
  
  
     if returnElementInJson is error {
-
         return returnErrorResponse(returnElementInJson);
-
     }
  
  
     return {
-
         headers: {
-
-            "X-Frame-Options": "DENY",
-
-            "Content-Security-Policy": "default-src 'none'"
-
+            "X-Frame-Options": ["DENY"],
+            "Content-Security-Policy": ["default-src 'none'"]
         },
-
         body: returnElementInJson
-
     };
  
  
@@ -493,25 +369,15 @@ function returnErrorResponse(error e) returns ErrorResponse {
  
  
     ErrorResponse errorR = {
-
         headers: {
-
-            "X-Frame-Options": "DENY",
-
-            "Content-Security-Policy": "default-src 'none'"
-
+            "X-Frame-Options": ["DENY"],
+            "Content-Security-Policy": ["default-src 'none'"]
         },
-
         body: {
-
             am\:fault: {
-
                 am\:description: e.toString()
-
             }
-
         }
-
     };
  
  
@@ -525,23 +391,14 @@ function soapBackendInvocation(string endpoint, xml payload, string soapAction, 
  
  
     soap11:Client soapClient = check new (endpoint, {
-
         httpConfig: {
-
             timeout: 150,
-
             secureSocket: {
-
                 enable: true,
-
                 cert: "/usr/app/server.pem",
-
                 verifyHostName: false
-
             }
-
         }
-
     });
  
  
@@ -552,4 +409,3 @@ function soapBackendInvocation(string endpoint, xml payload, string soapAction, 
  
  
 }
- 
