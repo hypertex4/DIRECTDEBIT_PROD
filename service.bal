@@ -226,7 +226,6 @@ function sendResponse(SoapBackendResponse backendResponse) returns http:Response
  
     xml xmlResponse = backendResponse.envelope/**/<tempuri:xmlResponse>;
     xml|error value = xml:fromString(xmlResponse.data());
- 
     if value is error {
         return returnErrorResponse(value);
     }
@@ -239,12 +238,9 @@ function sendResponse(SoapBackendResponse backendResponse) returns http:Response
     http:Response finalResponse = new;
     finalResponse.statusCode = backendResponse.httpResponse.statusCode;
  
-    string[] headerNames = backendResponse.httpResponse.getHeaderNames();
-    foreach string headerName in headerNames {
-        string|http:HeaderNotFoundError headerValue = backendResponse.httpResponse.getHeader(headerName);
-        if headerValue is string {
-            finalResponse.setHeader(headerName, headerValue);
-        }
+    map<string|string[]> backendHeaders = backendResponse.httpResponse.getHeaders();
+    foreach var [headerName, headerValue] in backendHeaders.entries() {
+        finalResponse.setHeader(headerName, headerValue);
     }
  
     finalResponse.setPayload(returnElementInJson);
