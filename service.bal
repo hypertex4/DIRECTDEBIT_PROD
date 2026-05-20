@@ -252,17 +252,16 @@ function sendResponse(SoapBackendResponse backendResponse) returns http:Response
 }
  
 function returnErrorResponse(error e) returns http:Response {
-    ErrorResponse errorR = {
+    http:Response resp = new;
+    resp.statusCode = 500;
+    json errorBody = {
         body: {
             am\:fault: {
                 am\:description: e.toString()
             }
         }
     };
-    http:Response resp = new;
-    resp.statusCode = 500;
-    json errorJson = errorR.cloneWithType();
-    resp.setPayload(errorJson);
+    resp.setPayload(errorBody);
     return resp;
 }
  
