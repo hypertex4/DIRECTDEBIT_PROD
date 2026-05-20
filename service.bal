@@ -241,11 +241,9 @@ function sendResponse(SoapBackendResponse backendResponse) returns http:Response
  
     string[] headerNames = backendResponse.httpResponse.getHeaderNames();
     foreach string headerName in headerNames {
-        string|string[] headerValue = backendResponse.httpResponse.getHeader(headerName);
+        string|http:HeaderNotFoundError headerValue = backendResponse.httpResponse.getHeader(headerName);
         if headerValue is string {
             finalResponse.setHeader(headerName, headerValue);
-        } else {
-            finalResponse.setHeader(headerName, headerValue[0]);
         }
     }
  
@@ -263,7 +261,8 @@ function returnErrorResponse(error e) returns http:Response {
     };
     http:Response resp = new;
     resp.statusCode = 500;
-    resp.setPayload(errorR);
+    json errorJson = errorR.cloneWithType();
+    resp.setPayload(errorJson);
     return resp;
 }
  
