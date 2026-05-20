@@ -1,0 +1,178 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<!-- File samplekonganew2.wsdl, application KongaProxy -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:tns="http://tempuri.org/" targetNamespace="http://tempuri.org/">
+<wsdl:documentation>
+<wsdl:appinfo source="WMQI_APPINFO">
+<MRWSDLAppInfo imported="true">
+<binding hasEncoding="false" imported="true" name="ServiceSoap" originalBindingStyle="document"/>
+</MRWSDLAppInfo>
+</wsdl:appinfo>
+</wsdl:documentation>
+<wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+<xsd:include schemaLocation="https://stashin.ubaopenbanking.com:7782/merchantpay/ddmservice?xsd=xsd0"/>
+</xsd:schema>
+</wsdl:types>
+<wsdl:message name="createMandateSoapIn">
+<wsdl:part element="tns:createMandate" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="createMandateSoapOut">
+<wsdl:part element="tns:createMandateResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="pingSoapIn">
+<wsdl:part element="tns:ping" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="pingSoapOut">
+<wsdl:part element="tns:pingResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="validateTokenSoapIn">
+<wsdl:part element="tns:validateToken" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="validateTokenSoapOut">
+<wsdl:part element="tns:validateTokenResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="makePaymentSoapIn">
+<wsdl:part element="tns:makePayment" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="makePaymentSoapOut">
+<wsdl:part element="tns:makePaymentResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="cancelMandateSoapIn">
+<wsdl:part element="tns:cancelMandate" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="cancelMandateSoapOut">
+<wsdl:part element="tns:cancelMandateResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="queryPaymentSoapIn">
+<wsdl:part element="tns:queryPayment" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="queryPaymentSoapOut">
+<wsdl:part element="tns:queryPaymentResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="creditMandateSoapIn">
+<wsdl:part element="tns:creditMandate" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="creditMandateSoapOut">
+<wsdl:part element="tns:creditMandateResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="resendOtpSoapIn">
+<wsdl:part element="tns:resendOtp" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="resendOtpSoapOut">
+<wsdl:part element="tns:resendOtpResponse" name="parameters"/>
+</wsdl:message>
+<wsdl:portType name="ServiceSoap">
+<wsdl:operation name="createMandate">
+<wsdl:input message="tns:createMandateSoapIn"/>
+<wsdl:output message="tns:createMandateSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ping">
+<wsdl:input message="tns:pingSoapIn"/>
+<wsdl:output message="tns:pingSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="validateToken">
+<wsdl:input message="tns:validateTokenSoapIn"/>
+<wsdl:output message="tns:validateTokenSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="makePayment">
+<wsdl:input message="tns:makePaymentSoapIn"/>
+<wsdl:output message="tns:makePaymentSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="cancelMandate">
+<wsdl:input message="tns:cancelMandateSoapIn"/>
+<wsdl:output message="tns:cancelMandateSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="queryPayment">
+<wsdl:input message="tns:queryPaymentSoapIn"/>
+<wsdl:output message="tns:queryPaymentSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="creditMandate">
+<wsdl:input message="tns:creditMandateSoapIn"/>
+<wsdl:output message="tns:creditMandateSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="resendOtp">
+<wsdl:input message="tns:resendOtpSoapIn"/>
+<wsdl:output message="tns:resendOtpSoapOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="createMandate">
+<soap:operation soapAction="http://tempuri.org/createMandate" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ping">
+<soap:operation soapAction="http://tempuri.org/ping" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="validateToken">
+<soap:operation soapAction="http://tempuri.org/validateToken" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="makePayment">
+<soap:operation soapAction="http://tempuri.org/makePayment" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="cancelMandate">
+<soap:operation soapAction="http://tempuri.org/cancelMandate" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="queryPayment">
+<soap:operation soapAction="http://tempuri.org/queryPayment" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="creditMandate">
+<soap:operation soapAction="http://tempuri.org/creditMandate" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="resendOtp">
+<soap:operation soapAction="http://tempuri.org/resendOtp" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="Service">
+<wsdl:port binding="tns:ServiceSoap" name="ServiceSoap">
+<soap:address location="https://stashin.ubaopenbanking.com:7782/merchantpay/ddmservice"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
